@@ -5,9 +5,8 @@
 
 class Queen : public Piece {
 public:
-    Queen();
-    std::string getName() const override;
-    bool isValidMove(int startX, int startY, int endX, int endY) const override;
+    Queen(float x, float y, bool isWhite);
+    void render() override;
 };
 
 #endif // QUEEN_H

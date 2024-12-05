@@ -5,9 +5,8 @@
 
 class King : public Piece {
 public:
-    King();
-    std::string getName() const override;
-    bool isValidMove(int startX, int startY, int endX, int endY) const override;
+    King(float x, float y, bool isWhite);
+    void render() override;
 };
 
 #endif // KING_H

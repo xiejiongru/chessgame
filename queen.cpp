@@ -1,13 +1,21 @@
 #include "queen.h"
+#include <GL/glut.h>
+Queen::Queen(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
+        setSize(0.4f);
+        setColor(isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f);
+    }
 
-Queen::Queen() {}
+void Queen::render(){
+    float gridSize = 1.0f;
+    float offset = gridSize / 2.0f;
+    float posX = x * gridSize + offset;
+    float posY = y * gridSize + offset;
 
-std::string Queen::getName() const {
-    return "Q";
+    glBegin(GL_POLYGON);
+    glColor3f(colorR, colorG, colorB);
+    glVertex2f(posX, posY + size); // 顶点
+    glVertex2f(posX - size, posY - size);
+    glVertex2f(posX + size, posY - size);
+    glEnd();
 }
 
-bool Queen::isValidMove(int startX, int startY, int endX, int endY) const {
-    // 后的规则：水平、垂直或斜着移动
-    return (startX == endX || startY == endY || 
-            std::abs(startX - endX) == std::abs(startY - endY));
-}

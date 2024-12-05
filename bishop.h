@@ -5,9 +5,8 @@
 
 class Bishop : public Piece {
 public:
-    Bishop();
-    std::string getName() const override;
-    bool isValidMove(int startX, int startY, int endX, int endY) const override;
+    Bishop(float x, float y, bool isWhite);
+    void render() override;
 };
 
 #endif // BISHOP_H

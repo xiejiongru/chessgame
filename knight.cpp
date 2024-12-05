@@ -1,14 +1,30 @@
 #include "knight.h"
+#include <GL/glut.h>
+#include <cmath>
 
-Knight::Knight() {}
-
-std::string Knight::getName() const {
-    return "N";  // 马在国际象棋中常用 "N" 表示
+Knight::Knight(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
+    setSize(0.3f);
+    if (isWhite) {
+        setColor(1.0f, 1.0f, 1.0f);
+    } else {
+        setColor(0.0f, 0.0f, 0.0f);
+    }
 }
 
-bool Knight::isValidMove(int startX, int startY, int endX, int endY) const {
-    // 马的规则：移动是 "L" 型，行差2列差1 或 行差1列差2
-    int dx = std::abs(startX - endX);
-    int dy = std::abs(startY - endY);
-    return (dx == 2 && dy == 1) || (dx == 1 && dy == 2);
+void Knight::render() {
+    float gridSize = 1.0f;
+    float offset = gridSize / 2.0f;
+    float posX = x * gridSize + offset;
+    float posY = y * gridSize + offset;
+
+    // 绘制马：一个简单的弧线+顶点组合
+    glBegin(GL_POLYGON);
+    glColor3f(colorR, colorG, colorB);
+    for (int i = 0; i <= 180; ++i) {
+        float angle = i * M_PI / 180;
+        float dx = cos(angle) * size;
+        float dy = sin(angle) * size;
+        glVertex2f(posX + dx, posY + dy);
+    }
+    glEnd();
 }

@@ -5,7 +5,6 @@
 #include <GL/glut.h>
 
 class Pawn : public Piece {
-    bool isWhite;  // 是否是白色棋子
 
 public:
     Pawn(float x, float y, bool isWhite);

@@ -17,12 +17,12 @@ add_executable(chess
     chessboard.h chessboard.cpp
     piece.h piece.cpp
     pawn.h pawn.cpp
-# │   rook.h rook.cpp
-# │   bishop.h bishop.cpp
-# │   knight.h knight.cpp
-# │   king.h king.cpp
-# │   queen.h queen.cpp
-# │   game.h game.cpp
+    rook.h rook.cpp
+    bishop.h bishop.cpp
+    knight.h knight.cpp
+    king.h king.cpp
+    queen.h queen.cpp
+#    game.h game.cpp
 )
 
 # 查找 OpenGL 和 GLUT
