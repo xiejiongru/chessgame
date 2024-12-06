@@ -2,7 +2,7 @@
 #include <iostream>
 
 // 构造函数
-Pawn::Pawn(float x, float y, bool isWhite) : Piece(x, y), isWhite(isWhite) {
+Pawn::Pawn(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
     setSize(0.4f);  // 设置大小为棋盘格子的 40%
     if (isWhite) {
         setColor(1.0f, 1.0f, 1.0f);  // 白色

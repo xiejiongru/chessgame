@@ -1,11 +1,11 @@
 #include "bishop.h"
 #include <GL/glut.h>
-Queen::Queen(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
+Bishop::Bishop(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
         setSize(0.4f);
         setColor(isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f);
     }
 
-void Queen::render(){
+void Bishop::render(){
     float gridSize = 1.0f;
     float offset = gridSize / 2.0f;
     float posX = x * gridSize + offset;
