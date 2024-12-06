@@ -1,5 +1,7 @@
 #include "king.h"
 #include <GL/glut.h>
+#include <iostream>
+
 King::King(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
         setSize(0.4f);
         setColor(isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f);
@@ -17,4 +19,10 @@ void King::render(){
     glVertex2f(posX - size, posY - size);
     glVertex2f(posX + size, posY - size);
     glEnd();
+        std::cout << "King at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
+}
+
+bool King::isValidMove(float newX, float newY){
+        // 国王只能走一格（上下左右或斜对角）
+        return (abs(newX - x) <= 1 && abs(newY - y) <= 1);
 }

@@ -1,7 +1,10 @@
 #include <vector>
 #include <iostream>
 #include <GL/glut.h>
+#include <memory>
+
 #include "chessboard.h"
+#include "piece.h"
 #include "pawn.h"
 #include "rook.h"
 #include "knight.h"
@@ -12,6 +15,7 @@
 
 // 全局变量，保存棋子
 std::vector<Piece*> pieces;
+std::vector<std::unique_ptr<Piece>> pieces;
 
 // 函数声明
 void layoutPieces(std::vector<Piece*>& pieces);

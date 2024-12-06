@@ -5,8 +5,9 @@
 
 class Queen : public Piece {
 public:
-    Queen(float x, float y, bool isWhite);
+    Queen(float x, float y, bool isWhite): Piece(x, y, isWhite) {};
     void render() override;
+    bool isValidMove(float newX, float newY) override;
 };
 
 #endif // QUEEN_H

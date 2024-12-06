@@ -5,8 +5,9 @@
 
 class King : public Piece {
 public:
-    King(float x, float y, bool isWhite);
+    King(float x, float y, bool isWhite): Piece(x, y, isWhite) {};
     void render() override;
+    bool isValidMove(float newX, float newY) override;
 };
 
 #endif // KING_H

@@ -1,6 +1,8 @@
 #include "knight.h"
 #include <GL/glut.h>
 #include <cmath>
+#include <iostream>
+
 
 Knight::Knight(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
     setSize(0.3f);
@@ -17,14 +19,16 @@ void Knight::render() {
     float posX = x * gridSize + offset;
     float posY = y * gridSize + offset;
 
-    // 绘制马：一个简单的弧线+顶点组合
-    glBegin(GL_POLYGON);
     glColor3f(colorR, colorG, colorB);
-    for (int i = 0; i <= 180; ++i) {
-        float angle = i * M_PI / 180;
-        float dx = cos(angle) * size;
-        float dy = sin(angle) * size;
-        glVertex2f(posX + dx, posY + dy);
-    }
-    glEnd();
+    glPushMatrix();
+    glTranslatef(posX, posY, 0);
+    glutSolidSphere(size, 20, 20); // 用球体代替马的弧线
+    glPopMatrix();
+    std::cout << "Knight at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
 }
+
+bool Knight::isValidMove(float newX, float newY){
+        // 马的走法是“日”字型：2格直线 + 1格垂直
+        return (abs(newX - x) == 2 && abs(newY - y) == 1) || (abs(newX - x) == 1 && abs(newY - y) == 2);
+}
+

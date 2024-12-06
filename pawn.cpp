@@ -27,3 +27,14 @@ void Pawn::render() {
     std::cout << "Pawn at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
 }
 
+bool Pawn::isValidMove(float newX, float newY) {
+    if (isWhite) {
+        return (newX == this->x && newY == this->y + 1) ||
+               (this->y == 1 && newX == this->x && newY == this->y + 2) ||
+               (abs(newX - this->x) == 1 && newY == this->y + 1); // 吃子
+    } else {
+        return (newX == this->x && newY == this->y - 1) ||
+               (this->y == 6 && newX == this->x && newY == this->y - 2) ||
+               (abs(newX - this->x) == 1 && newY == this->y - 1); // 吃子
+    }
+}

@@ -1,5 +1,7 @@
 #include "bishop.h"
 #include <GL/glut.h>
+#include <iostream>
+
 Bishop::Bishop(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
         setSize(0.4f);
         setColor(isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f);
@@ -17,4 +19,9 @@ void Bishop::render(){
     glVertex2f(posX - size, posY - size);
     glVertex2f(posX + size, posY - size);
     glEnd();
+    std::cout << "Bishop at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
+}
+
+bool Bishop::isValidMove(float newX, float newY) {
+    return (abs(newX - x) == abs(newY - y));
 }

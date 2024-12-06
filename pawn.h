@@ -7,9 +7,10 @@
 class Pawn : public Piece {
 
 public:
-    Pawn(float x, float y, bool isWhite);
+    Pawn(float x, float y, bool isWhite) : Piece(x, y, isWhite) {}
 
     void render() override;  // 重写渲染方法
+    bool isValidMove(float newX, float newY) override;
 };
 
 #endif
