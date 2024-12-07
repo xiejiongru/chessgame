@@ -9,8 +9,8 @@ class Pawn : public Piece {
 public:
     Pawn(float x, float y, bool isWhite) : Piece(x, y, isWhite) {}
 
-    void render() override;  // 重写渲染方法
-    bool isValidMove(float newX, float newY) override;
+    virtual void render() override;  // 重写渲染方法
+    virtual bool isValidMove(float newX, float newY) override;
 };
 
 #endif
