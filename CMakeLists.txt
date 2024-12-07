@@ -26,7 +26,7 @@ add_executable(chess
     knight.h knight.cpp
     king.h king.cpp
     queen.h queen.cpp
-#    game.h game.cpp
+    game.h game.cpp
 )
 
 # 查找 OpenGL 和 GLUT

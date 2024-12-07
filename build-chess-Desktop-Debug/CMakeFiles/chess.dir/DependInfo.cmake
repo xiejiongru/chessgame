@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/formation/Bureau/xjr/chess/bishop.cpp" "CMakeFiles/chess.dir/bishop.cpp.o" "gcc" "CMakeFiles/chess.dir/bishop.cpp.o.d"
   "/home/formation/Bureau/xjr/chess/chessboard.cpp" "CMakeFiles/chess.dir/chessboard.cpp.o" "gcc" "CMakeFiles/chess.dir/chessboard.cpp.o.d"
+  "/home/formation/Bureau/xjr/chess/game.cpp" "CMakeFiles/chess.dir/game.cpp.o" "gcc" "CMakeFiles/chess.dir/game.cpp.o.d"
   "/home/formation/Bureau/xjr/chess/king.cpp" "CMakeFiles/chess.dir/king.cpp.o" "gcc" "CMakeFiles/chess.dir/king.cpp.o.d"
   "/home/formation/Bureau/xjr/chess/knight.cpp" "CMakeFiles/chess.dir/knight.cpp.o" "gcc" "CMakeFiles/chess.dir/knight.cpp.o.d"
   "/home/formation/Bureau/xjr/chess/main.cpp" "CMakeFiles/chess.dir/main.cpp.o" "gcc" "CMakeFiles/chess.dir/main.cpp.o.d"

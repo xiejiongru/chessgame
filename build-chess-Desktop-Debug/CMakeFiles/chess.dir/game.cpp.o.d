@@ -1,5 +1,5 @@
-CMakeFiles/chess.dir/main.cpp.o: \
- /home/formation/Bureau/xjr/chess/main.cpp /usr/include/stdc-predef.h \
+CMakeFiles/chess.dir/game.cpp.o: \
+ /home/formation/Bureau/xjr/chess/game.cpp /usr/include/stdc-predef.h \
  /home/formation/Bureau/xjr/chess/game.h \
  /home/formation/Bureau/xjr/chess/piece.h /usr/include/c++/11/vector \
  /usr/include/c++/11/bits/stl_algobase.h \
