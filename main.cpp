@@ -6,6 +6,7 @@
 #include "bishop.h"
 #include "queen.h"
 #include "king.h"
+#include "game.h"
 
 // 用于初始化OpenGL的函数
 void initOpenGL(int argc, char** argv) {
@@ -62,21 +63,28 @@ void display() {
     for (auto& piece : Piece::pieces) {  // 遍历静态成员 pieces
         piece->render();  // 渲染每个棋子
     }
-
+    game.draw();  // 绘制棋盘和棋子
     glutSwapBuffers();
 }
 
 // 主函数
 int main(int argc, char** argv) {
-    initOpenGL(argc, argv);  // 初始化OpenGL
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+    glutInitWindowSize(800, 800);
+    glutCreateWindow("Chess Game - OBJ Loading");
 
-    initializePieces();  // 初始化棋子
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);  // 背景颜色
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-5.0f, 5.0f, -5.0f, 5.0f);
 
+  // 初始化游戏
+    game.initialize();
+
+    // 设置显示回调函数
     glutDisplayFunc(display);
-    glutMainLoop();
-
-    // 自动清理unique_ptr
-    Piece::pieces.clear();  // 清除棋子列表
+    glutMainLoop();  // 进入主循环
 
     return 0;
 }

@@ -178,4 +178,6 @@ CMakeFiles/chess.dir/main.cpp.o: \
  /home/formation/Bureau/xjr/chess/knight.h \
  /home/formation/Bureau/xjr/chess/bishop.h \
  /home/formation/Bureau/xjr/chess/queen.h \
- /home/formation/Bureau/xjr/chess/king.h
+ /home/formation/Bureau/xjr/chess/king.h \
+ /home/formation/Bureau/xjr/chess/game.h \
+ /home/formation/Bureau/xjr/chess/chessboard.h
