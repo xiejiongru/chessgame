@@ -14,6 +14,7 @@ public:
     Game();               // 构造函数
     ~Game();              // 析构函数，释放内存
     void initialize();    // 初始化棋局
+    void layoutPieces();  // 添加声明
     bool movePiece(int fromX, int fromY, int toX, int toY);     // 移动棋子
     void draw();          // 绘制棋盘
     void processInput();  // 处理用户输入
@@ -21,6 +22,8 @@ public:
     bool isInCheck(bool whitePlayer); // 检查是否被将军
     void drawChessBoard();  // 绘制棋盘
     void renderPieces();    // 渲染所有棋子
+
+    const std::vector<std::unique_ptr<Piece>>& getPieces() const; // 获取所有棋子的引用
 };
 
 #endif

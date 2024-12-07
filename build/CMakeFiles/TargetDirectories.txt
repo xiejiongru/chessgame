@@ -1,0 +1,3 @@
+/home/formation/Bureau/xjr/chess/build/CMakeFiles/chess.dir
+/home/formation/Bureau/xjr/chess/build/CMakeFiles/edit_cache.dir
+/home/formation/Bureau/xjr/chess/build/CMakeFiles/rebuild_cache.dir

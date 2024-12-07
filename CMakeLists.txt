@@ -12,7 +12,10 @@ cmake_policy(SET CMP0072 NEW)
 set(OpenGL_GL_PREFERENCE "GLVND")
 
 # 添加包含路径（当前文件夹）
-include_directories(${CMAKE_SOURCE_DIR})
+include_directories(
+    ${OPENGL_INCLUDE_DIR}
+    ${GLEW_INCLUDE_DIRS}
+)
 
 
 # 添加可执行文件
@@ -27,10 +30,13 @@ add_executable(chess
     king.h king.cpp
     queen.h queen.cpp
     game.h game.cpp
+    render.h render.cpp
+    shader.h shader.cpp
 )
 
 # 查找 OpenGL 和 GLUT
 find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
 find_package(GLUT REQUIRED)
 
 # 链接库
@@ -38,4 +44,5 @@ target_link_libraries(chess
     OpenGL::GL 
     OpenGL::GLU 
     GLUT::GLUT
+    GLEW::GLEW
 )

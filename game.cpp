@@ -1,13 +1,13 @@
-#include "game.h"
 #include <iostream>
 #include <GL/glut.h>
+#include "piece.h"
+#include "game.h"
 #include "pawn.h"
 #include "rook.h"
 #include "knight.h"
 #include "bishop.h"
 #include "queen.h"
 #include "king.h"
-
 
 Game::Game() : currentPlayer(true) {
     for (int i = 0; i < 8; ++i)
@@ -20,6 +20,10 @@ Game::~Game() {
 }
 
 void Game::initialize() {
+    layoutPieces(); // 调用layoutPieces进行初始化
+}
+
+void Game::layoutPieces() {
     // 初始化白色兵
     for (int i = 0; i < 8; ++i) {
         board[i][1] = std::make_unique<Pawn>(i, 1, true);  // 白色兵
@@ -45,14 +49,20 @@ void Game::initialize() {
     board[5][7] = std::make_unique<Bishop>(5, 7, false);
     board[3][7] = std::make_unique<Queen>(3, 7, false);
     board[4][7] = std::make_unique<King>(4, 7, false);
+
+    // 将棋盘中的棋子移动到 pieces 向量中
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (board[i][j]) {
+                pieces.push_back(std::move(board[i][j]));  // 使用 std::move
+            }
+        }
+    }
 }
 
-
 bool Game::isInCheck(bool whitePlayer) {
-    // 1. 查找玩家的国王的位置
     int kingX = -1, kingY = -1;
-    
-    // 寻找指定玩家的国王位置
+
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             if (board[i][j] && board[i][j]->getType() == "King" && board[i][j]->isWhitePiece() == whitePlayer) {
@@ -61,28 +71,25 @@ bool Game::isInCheck(bool whitePlayer) {
                 break;
             }
         }
-        if (kingX != -1) break; // 找到国王后跳出循环
-    }
-    
-    if (kingX == -1) {
-        std::cout << "King not found!\n";
-        return false; // 如果没有找到国王，返回 false
+        if (kingX != -1) break;
     }
 
-    // 2. 检查敌方棋子是否能攻击到国王
+    if (kingX == -1) {
+        std::cout << "King not found!\n";
+        return false;
+    }
+
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            // 只考虑敌方棋子
             if (board[i][j] && board[i][j]->isWhitePiece() != whitePlayer) {
-                // 检查敌方棋子是否能攻击到国王
                 if (board[i][j]->isValidMove(kingX, kingY)) {
-                    return true; // 如果敌方棋子可以攻击到国王，返回 true（表示将军）
+                    return true;
                 }
             }
         }
     }
 
-    return false; // 如果没有敌方棋子能攻击到国王，返回 false（表示没有将军）
+    return false;
 }
 
 void Game::processInput() {
@@ -95,14 +102,13 @@ void Game::processInput() {
 }
 
 void Game::drawChessBoard() {
-    // 使用 OpenGL 或其他库实现棋盘绘制
-    glBegin(GL_QUADS);  // 使用 OpenGL 绘制棋盘的简单代码
+    glBegin(GL_QUADS);
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             if ((i + j) % 2 == 0) {
-                glColor3f(1.0f, 1.0f, 1.0f);  // 白色格子
+                glColor3f(1.0f, 1.0f, 1.0f);
             } else {
-                glColor3f(0.0f, 0.0f, 0.0f);  // 黑色格子
+                glColor3f(0.0f, 0.0f, 0.0f);
             }
             glVertex2f(i, j);
             glVertex2f(i + 1, j);
@@ -111,60 +117,63 @@ void Game::drawChessBoard() {
         }
     }
     glEnd();
-    std::cout << "Drawing the chessboard...\n";
 }
 
 void Game::renderPieces() {
-    // 渲染所有棋子
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             if (board[i][j]) {
-                board[i][j]->render();  // 使用棋子的渲染方法
+                board[i][j]->render();
             }
         }
     }
-    std::cout << "Rendering chess pieces...\n";
 }
 
 bool Game::movePiece(int fromX, int fromY, int toX, int toY) {
-    // 获取起始位置的棋子（使用引用）
-    std::unique_ptr<Piece>& piece = board[fromX][fromY];  // 使用引用避免复制
+   std::unique_ptr<Piece>& piece = board[fromX][fromY];
 
-    if (!piece) {
-        std::cout << "No piece at start position.\n";
-        return false;
-    }
+   if (!piece) {
+       std::cout << "No piece at start position.\n";
+       return false;
+   }
 
-    // 检查是否是当前玩家的棋子
-    if (piece->isWhitePiece() != currentPlayer) {
-        std::cout << "It's not your turn!\n";
-        return false;
-    }
+   if (piece->isWhitePiece() != currentPlayer) {
+       std::cout << "It's not your turn!\n";
+       return false;
+   }
 
-    // 验证目标位置的棋子是否可捕捉
-    std::unique_ptr<Piece>& target = board[toX][toY];  // 使用引用
-    if (target && target->isWhitePiece() == currentPlayer) {
-        std::cout << "Cannot capture your own piece.\n";
-        return false;
-    }
+   std::unique_ptr<Piece>& target = board[toX][toY];
+   if (target && target->isWhitePiece() == currentPlayer) {
+       std::cout << "Cannot capture your own piece.\n";
+       return false;
+   }
 
-    // 检查目标位置是否合法
-    if (!piece->isValidMove(toX, toY)) {
-        std::cout << "Invalid move.\n";
-        return false;
-    }
+   if (!piece->isValidMove(toX, toY)) {
+       std::cout << "Invalid move.\n";
+       return false;
+   }
 
-    // 将棋子从起始位置移动到目标位置
-    board[toX][toY] = std::move(piece);  // 使用 std::move 移动棋子
-    board[fromX][fromY] = nullptr;  // 清空起始位置
+   board[toX][toY] = std::move(piece);
+   board[fromX][fromY] = nullptr;
+   piece->setPosition(toX, toY);
 
-    // 更新棋子的实际位置
-    piece->setPosition(toX, toY);
+   currentPlayer = !currentPlayer;
 
-    // 切换玩家
-    currentPlayer = !currentPlayer;
-
-    return true;
+   return true;
 }
 
+const std::vector<std::unique_ptr<Piece>>& Game::getPieces() const {
+    static std::vector<std::unique_ptr<Piece>> pieces;
+    pieces.clear();
+
+    // 将棋盘中的所有棋子添加到 pieces 中
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (board[i][j]) {
+                pieces.push_back(std::move(board[i][j]));
+            }
+        }
+    }
+    return pieces;
+}
 
