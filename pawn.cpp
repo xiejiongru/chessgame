@@ -12,7 +12,7 @@ Pawn::Pawn(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
 }
 
 // 渲染棋子
-virtual void Pawn::render () {
+void Pawn::render () {
     float gridSize = 1.0f;  // 棋盘每个格子的大小
     float offset = gridSize / 2.0f;  // 偏移量，使棋子位于网格中心
     float posX = x * gridSize + offset;  // 修正 x 坐标
@@ -27,7 +27,7 @@ virtual void Pawn::render () {
     std::cout << "Pawn at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
 }
 
-virtual bool Pawn::isValidMove(float newX, float newY) {
+bool Pawn::isValidMove(float newX, float newY) {
     if (isWhite) {
         return (newX == this->x && newY == this->y + 1) ||
                (this->y == 1 && newX == this->x && newY == this->y + 2) ||

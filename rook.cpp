@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include <iostream>
 
+// 定义构造函数
 Rook::Rook(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
     setSize(0.35f);  // 设置大小
     if (isWhite) {
@@ -11,6 +12,7 @@ Rook::Rook(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
     }
 }
 
+// 定义 render 函数
 void Rook::render() {
     float gridSize = 1.0f;
     float offset = gridSize / 2.0f;
@@ -28,7 +30,8 @@ void Rook::render() {
     std::cout << "Rook at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
 }
 
+// 定义 isValidMove 函数
 bool Rook::isValidMove(float newX, float newY){
-        // 车只能走横、竖方向
-        return (newX == x || newY == y);
+    // 车只能走横、竖方向
+    return (newX == x || newY == y);
 }

@@ -5,7 +5,7 @@
 
 class Bishop : public Piece {
 public:
-    Bishop(float x, float y, bool isWhite): Piece(x, y, isWhite) {};
+    Bishop(float x, float y, bool isWhite);
     void render() override;
     bool isValidMove(float newX, float newY) override;
 

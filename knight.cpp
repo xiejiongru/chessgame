@@ -27,6 +27,7 @@ void Knight::render() {
     glVertex2f(posX + size, posY - size); // 右下
 
     glEnd();
+}
 
 bool Knight::isValidMove(float newX, float newY){
         // 马的走法是“日”字型：2格直线 + 1格垂直

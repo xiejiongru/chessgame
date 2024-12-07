@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <memory>
 
 class Piece {
 protected:
@@ -16,7 +17,6 @@ protected:
 
 
 public:
-    // 构造函数初始化列表正确使用冒号
     Piece(float x, float y, bool isWhite)
         : x(x), y(y), isWhite(isWhite), size(0.5f), colorR(1.0f), colorG(1.0f), colorB(1.0f) {}
 
@@ -24,7 +24,7 @@ public:
 
     virtual void render() = 0;    // 渲染棋子
     virtual bool isValidMove(float newX, float newY) = 0; // 骨架方法，具体规则由子类实现
-
+    static std::vector<std::unique_ptr<Piece>> pieces;  // 将 pieces 设为静态成员
 
     // 设置位置
     virtual void setPosition(float x, float y) {
@@ -53,7 +53,7 @@ public:
     // 输出棋子信息
     void printInfo() const {
         std::cout << "Piece: " << type << " at (" << x << ", " << y << "), Color: " 
-                  << (isWhite ? "White" : "Black") << std::endl;
+                  << (isWhite ? "White" : "Black") << std::endl;}
 };
 
 
