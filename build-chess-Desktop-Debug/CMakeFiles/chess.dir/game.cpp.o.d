@@ -172,4 +172,10 @@ CMakeFiles/chess.dir/game.cpp.o: \
  /usr/include/c++/11/pstl/execution_defs.h /usr/include/GL/glut.h \
  /usr/include/GL/freeglut_std.h /usr/include/GL/gl.h \
  /usr/include/GL/glext.h /usr/include/KHR/khrplatform.h \
- /usr/include/GL/glu.h /usr/include/c++/11/stdlib.h
+ /usr/include/GL/glu.h /usr/include/c++/11/stdlib.h \
+ /home/formation/Bureau/xjr/chess/pawn.h \
+ /home/formation/Bureau/xjr/chess/rook.h \
+ /home/formation/Bureau/xjr/chess/knight.h \
+ /home/formation/Bureau/xjr/chess/bishop.h \
+ /home/formation/Bureau/xjr/chess/queen.h \
+ /home/formation/Bureau/xjr/chess/king.h

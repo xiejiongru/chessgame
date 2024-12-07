@@ -626,7 +626,13 @@ CMakeFiles/chess.dir/game.cpp.o: ../game.cpp \
   /usr/include/GL/glext.h \
   /usr/include/KHR/khrplatform.h \
   /usr/include/GL/glu.h \
-  /usr/include/c++/11/stdlib.h
+  /usr/include/c++/11/stdlib.h \
+  ../pawn.h \
+  ../rook.h \
+  ../knight.h \
+  ../bishop.h \
+  ../queen.h \
+  ../king.h
 
 CMakeFiles/chess.dir/king.cpp.o: ../king.cpp \
   /usr/include/stdc-predef.h \
@@ -2179,9 +2185,9 @@ CMakeFiles/chess.dir/rook.cpp.o: ../rook.cpp \
   /usr/include/c++/11/stdlib.h
 
 
-../rook.h:
-
 ../rook.cpp:
+
+../queen.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
@@ -2485,6 +2491,8 @@ CMakeFiles/chess.dir/rook.cpp.o: ../rook.cpp \
 
 /usr/include/c++/11/bits/unique_ptr.h:
 
+../rook.h:
+
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/c++/11/initializer_list:
@@ -2639,6 +2647,10 @@ CMakeFiles/chess.dir/rook.cpp.o: ../rook.cpp \
 
 ../game.h:
 
+/usr/include/GL/freeglut_std.h:
+
+../pawn.h:
+
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
 ../king.h:
@@ -2690,9 +2702,3 @@ CMakeFiles/chess.dir/rook.cpp.o: ../rook.cpp \
 ../piece.cpp:
 
 ../main.cpp:
-
-/usr/include/GL/freeglut_std.h:
-
-../pawn.h:
-
-../queen.cpp:

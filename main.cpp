@@ -24,14 +24,15 @@ int main(int argc, char** argv) {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);  // 背景颜色
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(-1.0, 9.0, -1.0, 9.0);
+    gluOrtho2D(-1.0, 9.0, -1.0, 9.0);  // 设置投影
 
-    // 初始化游戏
-    game.initialize();  // 初始化棋盘和棋子
+    // 初始化游戏（棋盘和棋子）
+    game.initialize();
 
     // 设置绘制回调函数
-    glutDisplayFunc(display);
-    glutMainLoop();
+    glutDisplayFunc(display);  // 每次渲染时调用 display 函数
+    glutMainLoop();  // 启动渲染循环
 
     return 0;
 }
+
