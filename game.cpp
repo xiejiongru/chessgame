@@ -149,26 +149,6 @@ void Game::processInput() {
     }
 }
 
-void Game::drawChessBoard() {
-    // 使用 OpenGL 或其他库实现棋盘绘制
-    glBegin(GL_QUADS);  // 使用 OpenGL 绘制棋盘的简单代码
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            if ((i + j) % 2 == 0) {
-                glColor3f(1.0f, 1.0f, 1.0f);  // 白色格子
-            } else {
-                glColor3f(0.0f, 0.0f, 0.0f);  // 黑色格子
-            }
-            glVertex2f(i, j);
-            glVertex2f(i + 1, j);
-            glVertex2f(i + 1, j + 1);
-            glVertex2f(i, j + 1);
-        }
-    }
-    glEnd();
-    std::cout << "Drawing the chessboard...\n";
-}
-
 void Game::renderPieces() {
     // 渲染所有棋子
     for (int i = 0; i < 8; i++) {

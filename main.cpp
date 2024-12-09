@@ -1,58 +1,49 @@
-#include "game.h"  // 引入 Game 类
+#include "chessboard.h"
+#include <GL/glew.h>
 #include <GL/glut.h>
+#include "game.h"
 
-Game game;  // 创建全局 Game 对象
+// 全局变量
+Game game;
+Chessboard chessboard;
 
-// 用于显示的回调函数
+// 显示回调
 void display() {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    game.drawChessBoard();  // 绘制棋盘
-    game.renderPieces();    // 渲染所有棋子
+    chessboard.render();   // 渲染 3D 棋盘
+    game.renderPieces();   // 渲染棋子
 
     glutSwapBuffers();
 }
 
-    void keyboard(unsigned char key, int x, int y) {
-    if (key == ' ') {
-        std::cout << "Space key pressed. Making a random move...\n";
-        game.makeRandomMove();
-        glutPostRedisplay();  // 更新显示
-    }
+// 初始化 OpenGL
+void initOpenGL() {
+    glEnable(GL_DEPTH_TEST);
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 }
 
 // 主程序入口
 int main(int argc, char** argv) {
-    // 初始化 OpenGL
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
-    glutInitWindowSize(500, 500);
-    glutCreateWindow("Chess Game");
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitWindowSize(800, 800);
+    glutCreateWindow("3D Chess");
 
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);  // 背景颜色
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(-1.0, 9.0, -1.0, 9.0);  // 设置投影
+    glewInit();  // 初始化 GLEW
+    initOpenGL();
 
-    // 初始化游戏（棋盘和棋子）
-    game.initialize();
+    chessboard.load();     // 加载棋盘
+    game.initialize();     // 初始化游戏
 
-    // 设置绘制回调函数
-    glutDisplayFunc(display);  // 每次渲染时调用 display 函数
-
-        // 设置键盘输入回调（触发随机移动）
+    glutDisplayFunc(display);
     glutKeyboardFunc([](unsigned char key, int x, int y) {
         if (key == ' ') {
-            std::cout << "Space key pressed. Making a move...\n";
             game.makeRandomMove();
             glutPostRedisplay();
         }
     });
 
-    glutKeyboardFunc(keyboard);
-
-    glutMainLoop();  // 启动渲染循环
-
+    glutMainLoop();
     return 0;
 }
-

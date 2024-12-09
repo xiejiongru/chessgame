@@ -22,7 +22,6 @@ public:
     void processInput();  // 处理用户输入
     bool isGameOver();    // 判断游戏是否结束
     bool isInCheck(bool whitePlayer); // 检查是否被将军
-    void drawChessBoard();  // 绘制棋盘
     void renderPieces();    // 渲染所有棋子
     void makeRandomMove();  // 让当前玩家的一个棋子随机移动
 };
