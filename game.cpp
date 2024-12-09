@@ -212,6 +212,11 @@ bool Game::movePiece(int fromX, int fromY, int toX, int toY) {
         return false;
     }
 
+    if (board[toX][toY] && board[toX][toY]->isWhitePiece() != board[fromX][fromY]->isWhitePiece()) {
+    std::cout << "Piece at (" << toX << ", " << toY << ") is captured!\n";
+    board[toX][toY] = nullptr; // 清空目标位置
+    }
+
     // 移动棋子
     board[toX][toY] = std::move(board[fromX][fromY]);
     board[fromX][fromY] = nullptr;
