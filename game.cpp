@@ -1,6 +1,4 @@
 #include "game.h"
-#include <iostream>
-#include <GL/glut.h>
 #include "pawn.h"
 #include "rook.h"
 #include "knight.h"
@@ -8,15 +6,17 @@
 #include "queen.h"
 #include "king.h"
 
+#include <iostream>
+#include <GL/glut.h>
+#include <algorithm> // 用于 std::random_shuffle
 
 Game::Game() : currentPlayer(true) {
+    std::srand(std::time(nullptr)); // 初始化随机数种子
     for (int i = 0; i < 8; ++i)
         for (int j = 0; j < 8; ++j)
             board[i][j] = nullptr;
 }
-
 Game::~Game() {
-    // 不需要显式释放，智能指针会自动管理
 }
 
 void Game::initialize() {
@@ -26,25 +26,80 @@ void Game::initialize() {
         board[i][6] = std::make_unique<Pawn>(i, 6, false); // 黑色兵
     }
 
-    // 初始化白色主力
-    board[0][0] = std::make_unique<Rook>(0, 0, true);
-    board[7][0] = std::make_unique<Rook>(7, 0, true);
-    board[1][0] = std::make_unique<Knight>(1, 0, true);
-    board[6][0] = std::make_unique<Knight>(6, 0, true);
-    board[2][0] = std::make_unique<Bishop>(2, 0, true);
-    board[5][0] = std::make_unique<Bishop>(5, 0, true);
-    board[3][0] = std::make_unique<Queen>(3, 0, true);
-    board[4][0] = std::make_unique<King>(4, 0, true);
+    // 初始化主要棋子
+    auto setupMajorPieces = [&](int y, bool isWhite) {
+        board[0][y] = std::make_unique<Rook>(0, y, isWhite);
+        board[7][y] = std::make_unique<Rook>(7, y, isWhite);
+        board[1][y] = std::make_unique<Knight>(1, y, isWhite);
+        board[6][y] = std::make_unique<Knight>(6, y, isWhite);
+        board[2][y] = std::make_unique<Bishop>(2, y, isWhite);
+        board[5][y] = std::make_unique<Bishop>(5, y, isWhite);
+        board[3][y] = std::make_unique<Queen>(3, y, isWhite);
+        board[4][y] = std::make_unique<King>(4, y, isWhite);
+    };
 
-    // 初始化黑色主力
-    board[0][7] = std::make_unique<Rook>(0, 7, false);
-    board[7][7] = std::make_unique<Rook>(7, 7, false);
-    board[1][7] = std::make_unique<Knight>(1, 7, false);
-    board[6][7] = std::make_unique<Knight>(6, 7, false);
-    board[2][7] = std::make_unique<Bishop>(2, 7, false);
-    board[5][7] = std::make_unique<Bishop>(5, 7, false);
-    board[3][7] = std::make_unique<Queen>(3, 7, false);
-    board[4][7] = std::make_unique<King>(4, 7, false);
+    setupMajorPieces(0, true);  // 白色主力
+    setupMajorPieces(7, false); // 黑色主力
+}
+
+
+// 获取指定棋子的所有合法移动位置
+std::vector<std::pair<int, int>> Game::getValidMoves(int x, int y) {
+    std::vector<std::pair<int, int>> validMoves;
+
+    // 如果该位置没有棋子，直接返回空的合法移动列表
+    if (!board[x][y]) return validMoves;
+
+    // 遍历棋盘所有位置，检查是否是合法移动
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (board[x][y]->isValidMove(i, j) &&
+                (!board[i][j] || board[i][j]->isWhitePiece() != board[x][y]->isWhitePiece())) {
+                validMoves.emplace_back(i, j);
+            }
+        }
+    }
+
+    // 打印选中棋子和合法移动
+    std::cout << "Selected piece at (" << x << ", " << y << ")\n";
+    std::cout << "Valid moves: ";
+    for (auto& move : validMoves) {
+        std::cout << "(" << move.first << ", " << move.second << ") ";
+    }
+    std::cout << std::endl;
+
+    return validMoves;
+}
+
+
+// 随机移动当前玩家的一个棋子
+void Game::makeRandomMove() {
+    std::vector<std::pair<int, int>> validMoves;
+    int fromX, fromY, toX, toY;
+
+    // 随机选择一个棋子
+    do {
+        fromX = rand() % 8;
+        fromY = rand() % 8;
+    } while (!board[fromX][fromY] || board[fromX][fromY]->isWhitePiece() != currentPlayer);
+
+    // 获取有效移动
+    validMoves = getValidMoves(fromX, fromY);
+
+    // 如果没有有效移动，跳过
+    if (validMoves.empty()) {
+        std::cout << "No valid moves for piece at (" << fromX << ", " << fromY << ")\n";
+        return;
+    }
+
+    // 随机选择一个有效移动
+    auto move = validMoves[rand() % validMoves.size()];
+    toX = move.first;
+    toY = move.second;
+
+    // 移动棋子
+    std::cout << "Moving piece from (" << fromX << ", " << fromY << ") to (" << toX << ", " << toY << ")\n";
+    movePiece(fromX, fromY, toX, toY);
 }
 
 
@@ -127,44 +182,49 @@ void Game::renderPieces() {
 }
 
 bool Game::movePiece(int fromX, int fromY, int toX, int toY) {
-    // 获取起始位置的棋子（使用引用）
-    std::unique_ptr<Piece>& piece = board[fromX][fromY];  // 使用引用避免复制
-
-    if (!piece) {
+    // 检查起始位置是否有棋子
+    if (!board[fromX][fromY]) {
         std::cout << "No piece at start position.\n";
         return false;
     }
 
+    // 检查目标位置是否在范围内
+    if (toX < 0 || toX >= 8 || toY < 0 || toY >= 8) {
+        std::cout << "Target position out of bounds.\n";
+        return false;
+    }
+
     // 检查是否是当前玩家的棋子
-    if (piece->isWhitePiece() != currentPlayer) {
+    if (board[fromX][fromY]->isWhitePiece() != currentPlayer) {
         std::cout << "It's not your turn!\n";
         return false;
     }
 
     // 验证目标位置的棋子是否可捕捉
-    std::unique_ptr<Piece>& target = board[toX][toY];  // 使用引用
-    if (target && target->isWhitePiece() == currentPlayer) {
+    if (board[toX][toY] && board[toX][toY]->isWhitePiece() == currentPlayer) {
         std::cout << "Cannot capture your own piece.\n";
         return false;
     }
 
     // 检查目标位置是否合法
-    if (!piece->isValidMove(toX, toY)) {
+    if (!board[fromX][fromY]->isValidMove(toX, toY)) {
         std::cout << "Invalid move.\n";
         return false;
     }
 
-    // 将棋子从起始位置移动到目标位置
-    board[toX][toY] = std::move(piece);  // 使用 std::move 移动棋子
-    board[fromX][fromY] = nullptr;  // 清空起始位置
+    // 移动棋子
+    board[toX][toY] = std::move(board[fromX][fromY]);
+    board[fromX][fromY] = nullptr;
 
-    // 更新棋子的实际位置
-    piece->setPosition(toX, toY);
+    // 更新棋子位置
+    board[toX][toY]->setPosition(toX, toY);
 
     // 切换玩家
     currentPlayer = !currentPlayer;
 
     return true;
 }
+
+
 
 

@@ -169,13 +169,25 @@ CMakeFiles/chess.dir/game.cpp.o: \
  /usr/include/c++/11/bits/atomic_lockfree_defines.h \
  /usr/include/c++/11/backward/auto_ptr.h \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
- /usr/include/c++/11/pstl/execution_defs.h /usr/include/GL/glut.h \
+ /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/ctime \
+ /home/formation/Bureau/xjr/chess/pawn.h /usr/include/GL/glut.h \
  /usr/include/GL/freeglut_std.h /usr/include/GL/gl.h \
  /usr/include/GL/glext.h /usr/include/KHR/khrplatform.h \
  /usr/include/GL/glu.h /usr/include/c++/11/stdlib.h \
- /home/formation/Bureau/xjr/chess/pawn.h \
  /home/formation/Bureau/xjr/chess/rook.h \
  /home/formation/Bureau/xjr/chess/knight.h \
  /home/formation/Bureau/xjr/chess/bishop.h \
  /home/formation/Bureau/xjr/chess/queen.h \
- /home/formation/Bureau/xjr/chess/king.h
+ /home/formation/Bureau/xjr/chess/king.h /usr/include/c++/11/algorithm \
+ /usr/include/c++/11/bits/stl_algo.h \
+ /usr/include/c++/11/bits/algorithmfwd.h \
+ /usr/include/c++/11/bits/stl_heap.h \
+ /usr/include/c++/11/bits/uniform_int_dist.h \
+ /usr/include/c++/11/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
+ /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
+ /usr/include/c++/11/bits/hashtable_policy.h \
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /usr/include/c++/11/bits/node_handle.h \
+ /usr/include/c++/11/bits/unordered_map.h \
+ /usr/include/c++/11/bits/erase_if.h

@@ -13,6 +13,14 @@ void display() {
     glutSwapBuffers();
 }
 
+    void keyboard(unsigned char key, int x, int y) {
+    if (key == ' ') {
+        std::cout << "Space key pressed. Making a random move...\n";
+        game.makeRandomMove();
+        glutPostRedisplay();  // 更新显示
+    }
+}
+
 // 主程序入口
 int main(int argc, char** argv) {
     // 初始化 OpenGL
@@ -31,6 +39,18 @@ int main(int argc, char** argv) {
 
     // 设置绘制回调函数
     glutDisplayFunc(display);  // 每次渲染时调用 display 函数
+
+        // 设置键盘输入回调（触发随机移动）
+    glutKeyboardFunc([](unsigned char key, int x, int y) {
+        if (key == ' ') {
+            std::cout << "Space key pressed. Making a move...\n";
+            game.makeRandomMove();
+            glutPostRedisplay();
+        }
+    });
+
+    glutKeyboardFunc(keyboard);
+
     glutMainLoop();  // 启动渲染循环
 
     return 0;
