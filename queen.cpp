@@ -15,7 +15,7 @@ void Queen::render(){
 
     glBegin(GL_POLYGON);
     glColor3f(colorR, colorG, colorB);
-    glVertex2f(posX, posY + size); // 顶点
+    glVertex2f(posX, posY + size); // top
     glVertex2f(posX - size, posY - size);
     glVertex2f(posX + size, posY - size);
     glEnd();
@@ -23,6 +23,6 @@ void Queen::render(){
 }
 
 bool Queen::isValidMove(float newX, float newY){
-        // 皇后可以走横、竖、斜方向
+        // Queen move: any direction
         return (newX == x || newY == y || abs(newX - x) == abs(newY - y));
 }

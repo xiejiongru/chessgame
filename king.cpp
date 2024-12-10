@@ -15,7 +15,7 @@ void King::render(){
 
     glBegin(GL_POLYGON);
     glColor3f(colorR, colorG, colorB);
-    glVertex2f(posX, posY + size); // 顶点
+    glVertex2f(posX, posY + size); 
     glVertex2f(posX - size, posY - size);
     glVertex2f(posX + size, posY - size);
     glEnd();
@@ -23,6 +23,6 @@ void King::render(){
 }
 
 bool King::isValidMove(float newX, float newY){
-        // 国王只能走一格（上下左右或斜对角）
+        // Only allow one square move
         return (abs(newX - x) <= 1 && abs(newY - y) <= 1);
 }

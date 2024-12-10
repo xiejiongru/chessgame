@@ -14,23 +14,23 @@ Knight::Knight(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
 }
 
 void Knight::render() {
-    float gridSize = 1.0f; // 棋盘每个格子的大小
-    float offset = gridSize / 2.0f; // 偏移量，使棋子位于网格中心
-    float posX = x * gridSize + offset; // 计算渲染位置
+    float gridSize = 1.0f; 
+    float offset = gridSize / 2.0f; 
+    float posX = x * gridSize + offset; 
     float posY = y * gridSize + offset;
 
-    glBegin(GL_TRIANGLES); // 开始绘制三角形
-    glColor3f(colorR, colorG, colorB); // 设置颜色
+    glBegin(GL_TRIANGLES); 
+    glColor3f(colorR, colorG, colorB); 
 
-    glVertex2f(posX, posY + size); // 顶点
-    glVertex2f(posX - size, posY - size); // 左下
-    glVertex2f(posX + size, posY - size); // 右下
+    glVertex2f(posX, posY + size); // top
+    glVertex2f(posX - size, posY - size); // left bottom
+    glVertex2f(posX + size, posY - size); // right bottom
 
     glEnd();
 }
 
 bool Knight::isValidMove(float newX, float newY){
-        // 马的走法是“日”字型：2格直线 + 1格垂直
+        // horse moves: L shape
         return (abs(newX - x) == 2 && abs(newY - y) == 1) || (abs(newX - x) == 1 && abs(newY - y) == 2);
 }
 
