@@ -5,9 +5,9 @@
 Rook::Rook(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
     setSize(0.35f); 
     if (isWhite) {
-        setColor(1.0f, 1.0f, 1.0f); 
+        setColor(0.9f, 0.9f, 0.9f); 
     } else {
-        setColor(0.0f, 0.0f, 0.0f); 
+        setColor(0.2f, 0.2f, 0.2f); 
     }
 }
 
@@ -19,10 +19,10 @@ void Rook::render() {
 
     glBegin(GL_QUADS);
     glColor3f(colorR, colorG, colorB);
-    glVertex2f(posX - size, posY - size);
-    glVertex2f(posX + size, posY - size);
-    glVertex2f(posX + size, posY + size);
-    glVertex2f(posX - size, posY + size);
+    glVertex2f(posX - size / 2, posY - size / 2);
+    glVertex2f(posX + size / 2, posY - size / 2);
+    glVertex2f(posX + size / 2, posY + size / 2);
+    glVertex2f(posX - size / 2, posY + size / 2);
     glEnd();
     std::cout << "Rook at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
 }

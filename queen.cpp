@@ -1,10 +1,15 @@
 #include "queen.h"
 #include <GL/glut.h>
 #include <iostream>
+#include <cmath>
+
+#ifndef M_PI
+#define M_PI 3.14159
+#endif
 
 Queen::Queen(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
         setSize(0.4f);
-        setColor(isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f, isWhite ? 1.0f : 0.0f);
+        setColor(isWhite ? 0.9f : 0.2f, isWhite ? 0.9f : 0.2f, isWhite ? 0.9f : 0.2f);
     }
 
 void Queen::render(){
@@ -15,9 +20,10 @@ void Queen::render(){
 
     glBegin(GL_POLYGON);
     glColor3f(colorR, colorG, colorB);
-    glVertex2f(posX, posY + size); // top
-    glVertex2f(posX - size, posY - size);
-    glVertex2f(posX + size, posY - size);
+    for (int i = 0; i < 5; ++i) {
+        float angle = i * 2 * M_PI / 5; 
+        glVertex2f(posX + cos(angle) * size, posY + sin(angle) * size);
+    }
     glEnd();
     std::cout << "Queen at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
 }

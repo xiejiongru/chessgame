@@ -4,9 +4,9 @@
 Pawn::Pawn(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
     setSize(0.4f);  //40pc of the chessboard 
     if (isWhite) {
-        setColor(1.0f, 1.0f, 1.0f); 
+        setColor(0.9f, 0.9f, 0.9f); 
     } else {
-        setColor(0.0f, 0.0f, 0.0f); 
+        setColor(0.2f, 0.2f, 0.2f); 
     }
 }
 
@@ -17,11 +17,12 @@ void Pawn::render () {
     float posX = x * gridSize + offset;  
     float posY = y * gridSize + offset;  
 
-    glBegin(GL_TRIANGLES);
+    glBegin(GL_QUADS);  // square
     glColor3f(colorR, colorG, colorB);
     glVertex2f(posX - size, posY - size);
     glVertex2f(posX + size, posY - size);
-    glVertex2f(posX, posY + size);
+    glVertex2f(posX + size, posY + size);
+    glVertex2f(posX - size, posY + size);
     glEnd();
     std::cout << "Pawn at grid (" << x << ", " << y << ") is drawn at (" << posX << ", " << posY << ")\n";
 }

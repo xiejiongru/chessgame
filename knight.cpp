@@ -7,9 +7,9 @@
 Knight::Knight(float x, float y, bool isWhite) : Piece(x, y, isWhite) {
     setSize(0.4f);
     if (isWhite) {
-        setColor(1.0f, 1.0f, 1.0f);
+        setColor(0.9f, 0.9f, 0.9f);
     } else {
-        setColor(0.0f, 0.0f, 0.0f);
+        setColor(0.2f, 0.2f, 0.2f);
     }
 }
 
